@@ -88,8 +88,12 @@ header.top{position:sticky;top:0;z-index:20;background:rgba(238,240,232,.82);bac
 .dot.ok{background:#7FA36B}.dot.soon{background:#D9B860}.dot.end{background:#C48A9D}
 .legend{display:flex;flex-wrap:wrap;gap:1.1rem;margin-top:1.4rem;font-size:.84rem;color:var(--soft)}
 .legend span{display:flex;align-items:center;gap:.4rem}
+.hero-visual{position:relative}
+.hero-photo{display:block;width:88%;margin-left:auto;aspect-ratio:4/5;object-fit:cover;border-radius:240px 240px 36px 36px;background:var(--sage-deep);filter:saturate(.88) contrast(.97);box-shadow:0 30px 60px -38px rgba(51,64,47,.55)}
+.hero-photo + .sprout{top:-30px;right:auto;left:8%}
+.hero-photo ~ .board{margin-top:-11rem;width:82%;position:relative;z-index:2}
 .sprout{position:absolute;width:64px;right:18px;top:-46px;z-index:3}
-@media (max-width:900px){.hero-grid{grid-template-columns:1fr;gap:3rem}.blob.b1{right:-200px;top:380px}}
+@media (max-width:900px){.hero-photo{width:100%;aspect-ratio:4/3.6}.hero-photo ~ .board{width:92%;margin:-6rem auto 0}.hero-grid{grid-template-columns:1fr;gap:3rem}.blob.b1{right:-200px;top:380px}}
 
 section{padding:6.5rem 0}
 .section-head{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:end;margin-bottom:3.2rem}
@@ -164,7 +168,12 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--moss);ba
 .insta-grid div:nth-child(4){grid-row:span 2;background:var(--sage)}
 .insta-grid div:nth-child(5){grid-column:span 2;background:var(--oat)}
 .insta-grid a{border-radius:24px;overflow:hidden;display:block;position:relative;background:var(--sage-deep)}
-.insta-grid a img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.insta-grid a img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s;filter:saturate(.88) contrast(.97)}
+.insta-grid a:nth-child(2){background:var(--blush)}.insta-grid a:nth-child(3){background:var(--straw)}.insta-grid a:nth-child(5){background:var(--oat)}
+.insta-grid .cta-tile{background:var(--moss);color:#F3F5EE;text-decoration:none;display:flex;flex-direction:column;justify-content:flex-end;gap:.4rem;padding:1.8rem}
+.insta-grid .cta-tile span{font-family:var(--display);font-size:1.5rem;line-height:1.2;font-variation-settings:"SOFT" 100}
+.insta-grid .cta-tile b{font-weight:700;opacity:.8}
+.insta-grid .cta-tile:hover{background:var(--moss-deep)}
 .insta-grid a:hover img{transform:scale(1.04)}
 .insta-grid a:nth-child(1),.insta-grid a:nth-child(4){grid-row:span 2}
 .insta-grid a:nth-child(5){grid-column:span 2}
@@ -228,7 +237,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
           <span><b>François sur place</b> le samedi 9h–12h</span>
         </div>
       </div>
-      <div style="position:relative">
+      <div class="hero-visual">
+        <img class="hero-photo" src="https://static.wixstatic.com/media/bc29ff_db41c44d14154601935888244261c4b0~mv2.jpg/v1/fill/w_1200,h_1500,al_c,q_85,enc_auto/acterre-champ.jpg" alt="Le terrain d'Acterre à Anthisnes" onerror="this.remove()">
         <svg class="sprout" viewBox="0 0 80 90" aria-hidden="true"><path d="M40 88V40" stroke="#5E7354" stroke-width="4" stroke-linecap="round" fill="none"/><path d="M40 48C24 48 10 38 10 18c18 0 30 10 30 30z" fill="#93AD82"/><path d="M40 40c0-18 12-32 32-32 0 20-14 32-32 32z" fill="#5E7354"/></svg>
         <aside class="board" aria-labelledby="board-title">
           <div class="board-head">
@@ -393,7 +403,11 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
         <a class="btn soft" href="https://www.instagram.com/acterre.be/">Suivre @acterre.be</a>
       </div>
       <div class="insta-grid" aria-label="Dernières photos Instagram">
-        <div>photo</div><div>photo</div><div>photo</div><div>photo</div><div>photo</div>
+        <a href="https://www.instagram.com/acterre.be/"><img src="https://static.wixstatic.com/media/bc29ff_9cfb38570a2e4dc596bdac65048dba1e~mv2.jpg/v1/fill/w_700,h_1250,al_c,q_85,enc_auto/acterre-terrain.jpg" alt="Le terrain d'Acterre" loading="lazy" onerror="this.remove()"></a>
+        <a href="https://www.instagram.com/acterre.be/"><img src="https://static.wixstatic.com/media/bc29ff_902ebc6902754ad8b2ff7d3e5d96b124~mv2.jpg/v1/fill/w_900,h_700,al_c,q_85,enc_auto/acterre-bio.jpg" alt="Culture bio chez Acterre" loading="lazy" onerror="this.remove()"></a>
+        <a href="https://www.instagram.com/acterre.be/"><img src="https://static.wixstatic.com/media/bc29ff_dbac4367476b44d7b8613e66caeff638~mv2.png/v1/fill/w_900,h_700,al_c,q_85,enc_auto/acterre-irrigation.png" alt="Installation de l'irrigation sur le terrain" loading="lazy" onerror="this.remove()"></a>
+        <a href="https://www.instagram.com/acterre.be/" class="cta-tile"><span>Toutes les photos du terrain sur Instagram</span><b>@acterre.be</b></a>
+        <a href="https://www.instagram.com/acterre.be/"><img src="https://static.wixstatic.com/media/bc29ff_db41c44d14154601935888244261c4b0~mv2.jpg/v1/fill/w_1200,h_600,al_c,q_85,enc_auto/acterre-champ-large.jpg" alt="Les cultures d'Acterre" loading="lazy" onerror="this.remove()"></a>
       </div>
     </div>
   </section>
