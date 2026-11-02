@@ -226,6 +226,15 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--moss);ba
 .carte-soutien .btn{justify-self:start;margin-top:.6rem}
 .iban{font-family:var(--display);font-size:1.3rem;letter-spacing:.03em;color:var(--moss-deep);margin-top:.3rem;font-variation-settings:"SOFT" 100}
 @media (max-width:860px){.soutien{grid-template-columns:1fr;gap:2rem}.soutien-intro{position:static}.carte-soutien{grid-template-columns:1fr}.carte-soutien svg{grid-row:auto}}
+
+.bascule{display:inline-flex;background:rgba(255,255,255,.14);border-radius:999px;padding:4px;align-self:flex-start}
+.bascule button{border:0;background:none;color:#E4EADC;font:700 .88rem var(--body);padding:.45rem .95rem;border-radius:999px;cursor:pointer}
+.bascule button[aria-pressed="true"]{background:var(--paper);color:var(--moss-deep)}
+.echeancier{list-style:none;display:grid;gap:.3rem;margin:.2rem 0 1rem;font-size:.95rem;color:var(--ink)}
+.echeancier li{padding-left:1.1rem;position:relative}
+.echeancier li::before{content:"";position:absolute;left:0;top:.6em;width:7px;height:7px;border-radius:50%;background:var(--moss);opacity:.5}
+.total-saison{padding:.8rem 0;border-block:1px solid rgba(94,115,84,.15);margin-bottom:.9rem}
+.total-saison b{color:var(--moss-deep)}
 footer{color:var(--soft);padding:2.5rem 0 2.5rem;font-size:.9rem;border-top:1px solid rgba(94,115,84,.15);margin-top:1rem}
 footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
 </style>
@@ -303,13 +312,17 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
       <div class="formules">
         <article class="formule main">
           <span class="tag">Le plus avantageux</span>
-          <h3>Abonnement de saison</h3>
-          <div class="price">350 €<small>par adulte pour toute la saison</small></div>
+          <h3>Abonnement saison 2026</h3>
+          <div class="bascule" role="group" aria-label="Afficher le prix">
+            <button type="button" data-vue="mois" aria-pressed="true">Par mois</button>
+            <button type="button" data-vue="saison" aria-pressed="false">Pour la saison</button>
+          </div>
+          <div class="price" data-mois="50 €" data-saison="350 €">50 €<small data-mois="par adulte et par mois, de mai à novembre. Décembre est offert !" data-saison="par adulte pour toute la saison, de mai à décembre">par adulte et par mois, de mai à novembre. Décembre est offert !</small></div>
           <ul>
             <li>Accès libre et illimité au terrain</li>
             <li>Pas de pesée, pas de paiement à chaque visite</li>
             <li>Aromates inclus, en quantités raisonnables</li>
-            <li>Enfants 7–11 ans : 231 €, 3–6 ans : 87,50 €</li>
+            <li data-mois="Enfants 7–11 ans : 33 €/mois, 3–6 ans : 12,50 €/mois" data-saison="Enfants 7–11 ans : 231 €, 3–6 ans : 87,50 €">Enfants 7–11 ans : 33 €/mois, 3–6 ans : 12,50 €/mois</li>
           </ul>
           <a class="btn soft" href="#inscription">Calculer et s'inscrire</a>
         </article>
@@ -371,15 +384,15 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
           </div>
           <label>E-mail<input name="email" type="email" autocomplete="email" required></label>
           <div class="counters">
-            <div class="counter"><span>Adultes<small>350 € chacun</small></span><div class="stepper" data-k="a"><button type="button" aria-label="Retirer un adulte">−</button><output>1</output><button type="button" aria-label="Ajouter un adulte">+</button></div></div>
-            <div class="counter"><span>Enfants de 7 à 11 ans<small>231 € chacun</small></span><div class="stepper" data-k="b"><button type="button" aria-label="Retirer un enfant de 7 à 11 ans">−</button><output>0</output><button type="button" aria-label="Ajouter un enfant de 7 à 11 ans">+</button></div></div>
-            <div class="counter"><span>Enfants de 3 à 6 ans<small>87,50 € chacun</small></span><div class="stepper" data-k="c"><button type="button" aria-label="Retirer un enfant de 3 à 6 ans">−</button><output>0</output><button type="button" aria-label="Ajouter un enfant de 3 à 6 ans">+</button></div></div>
+            <div class="counter"><span>Adultes<small>50 €/mois ou 350 € la saison</small></span><div class="stepper" data-k="a"><button type="button" aria-label="Retirer un adulte">−</button><output>1</output><button type="button" aria-label="Ajouter un adulte">+</button></div></div>
+            <div class="counter"><span>Enfants de 7 à 11 ans<small>33 €/mois ou 231 € la saison</small></span><div class="stepper" data-k="b"><button type="button" aria-label="Retirer un enfant de 7 à 11 ans">−</button><output>0</output><button type="button" aria-label="Ajouter un enfant de 7 à 11 ans">+</button></div></div>
+            <div class="counter"><span>Enfants de 3 à 6 ans<small>12,50 €/mois ou 87,50 € la saison</small></span><div class="stepper" data-k="c"><button type="button" aria-label="Retirer un enfant de 3 à 6 ans">−</button><output>0</output><button type="button" aria-label="Ajouter un enfant de 3 à 6 ans">+</button></div></div>
           </div>
           <label>Paiement
             <select name="paiement">
-              <option>En une fois</option>
-              <option>Tous les mois</option>
-              <option>Tous les deux mois</option>
+              <option value="mois">Tous les mois (mai à novembre)</option>
+              <option value="deux">Tous les deux mois (mai, juillet, septembre)</option>
+              <option value="une">En une fois (début mai)</option>
             </select>
           </label>
           <label>Un mot pour François (facultatif)<textarea name="msg" rows="3" placeholder="Garde alternée, question, besoin d'accès particulier…"></textarea></label>
@@ -396,8 +409,10 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
           </div>
         </form>
         <aside class="total" aria-live="polite">
-          <h3>Total pour la saison</h3>
-          <div class="price" id="total">350 €</div>
+          <h3 id="total-titre">Par mois</h3>
+          <div class="price" id="total">50 €</div>
+          <ul class="echeancier" id="echeancier"></ul>
+          <p class="total-saison">Total saison 2026 : <b id="total-saison">350 €</b></p>
           <p>Garde alternée : le tarif se discute avec François. Les petits fruits (fraises, framboises…) ne sont pas compris dans l'abonnement.</p>
         </aside>
       </div>
@@ -642,12 +657,44 @@ const toggle = document.querySelector(".menu-toggle"), menu = document.getElemen
 toggle.addEventListener("click", () => { const o = menu.classList.toggle("open"); toggle.setAttribute("aria-expanded", o); });
 menu.addEventListener("click", e => { if (e.target.tagName === "A") { menu.classList.remove("open"); toggle.setAttribute("aria-expanded", false); } });
 
-const TARIF = {a:350, b:231, c:87.5}, nb = {a:1, b:0, c:0};
+/* Tarifs abonnement 2026 */
+const TARIF = {
+  une:  {a:350, b:231, c:87.5},
+  mois: {a:50,  b:33,  c:12.5},
+  deux1:{a:110, b:77,  c:27.5},
+  deux: {a:120, b:77,  c:30}
+}, nb = {a:1, b:0, c:0};
 const euro = v => v.toLocaleString("fr-BE",{minimumFractionDigits:v%1?2:0,maximumFractionDigits:2}) + " €";
-const calc = () => Object.keys(nb).reduce((s,k) => s + nb[k]*TARIF[k], 0);
+const somme = t => Object.keys(nb).reduce((s,k) => s + nb[k]*t[k], 0);
+const calc = () => somme(TARIF.une);
+const modePaiement = () => document.querySelector('select[name="paiement"]').value;
+function detailPaiement(){
+  const m = modePaiement();
+  if (m === "mois") return {titre:"Par mois", montant:euro(somme(TARIF.mois)), lignes:["7 versements, de mai à novembre","Décembre offert"]};
+  if (m === "deux") return {titre:"Tous les deux mois", montant:"3 versements", lignes:["Début mai : " + euro(somme(TARIF.deux1)),"1er juillet : " + euro(somme(TARIF.deux)),"1er septembre : " + euro(somme(TARIF.deux))]};
+  return {titre:"En une fois", montant:euro(calc()), lignes:["Début mai 2026"]};
+}
+function majTotal(){
+  const d = detailPaiement();
+  document.getElementById("total-titre").textContent = d.titre;
+  document.getElementById("total").textContent = d.montant;
+  document.getElementById("echeancier").innerHTML = d.lignes.map(l => `<li>${l}</li>`).join("");
+  document.getElementById("total-saison").textContent = euro(calc());
+}
+document.querySelector('select[name="paiement"]').addEventListener("change", majTotal);
+majTotal();
+document.querySelectorAll(".bascule button").forEach(b => b.addEventListener("click", () => {
+  const v = b.dataset.vue;
+  document.querySelectorAll(".bascule button").forEach(x => x.setAttribute("aria-pressed", x === b));
+  document.querySelectorAll(".formule.main [data-mois]").forEach(el => {
+    const small = el.querySelector(":scope > small");
+    if (small) { el.firstChild.textContent = el.dataset[v]; small.textContent = small.dataset[v]; }
+    else if (el.tagName !== "SMALL") el.textContent = el.dataset[v];
+  });
+}));
 document.querySelectorAll(".stepper").forEach(st => {
   const k = st.dataset.k, [moins, plus] = st.querySelectorAll("button"), out = st.querySelector("output");
-  const maj = d => { nb[k] = Math.max(k==="a"?1:0, Math.min(10, nb[k]+d)); out.textContent = nb[k]; document.getElementById("total").textContent = euro(calc()); };
+  const maj = d => { nb[k] = Math.max(k==="a"?1:0, Math.min(10, nb[k]+d)); out.textContent = nb[k]; majTotal(); };
   moins.onclick = () => maj(-1); plus.onclick = () => maj(1);
 });
 
@@ -666,8 +713,8 @@ Nom : ${f.get("nom")}
 E-mail : ${f.get("email")}
 Téléphone : ${f.get("tel") || "-"}
 Ménage : ${nb.a} adulte(s), ${nb.b} enfant(s) de 7 à 11 ans, ${nb.c} enfant(s) de 3 à 6 ans
-Total : ${euro(calc())}
-Paiement : ${f.get("paiement")}
+Total saison 2026 : ${euro(calc())}
+Paiement : ${detailPaiement().titre} (${detailPaiement().lignes.join(", ")})${modePaiement()==="mois" ? "\nMontant : " + detailPaiement().montant + " par mois" : ""}
 ${f.get("msg") ? "\n" + f.get("msg") + "\n" : ""}
 Merci !`;
   document.getElementById("recap").textContent = txt;
